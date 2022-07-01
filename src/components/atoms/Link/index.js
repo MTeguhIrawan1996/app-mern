@@ -1,5 +1,5 @@
 import React from "react";
-import "./link.scss";
+import "../main.scss";
 
 const Link = ({ title, onClick }) => {
   return (
