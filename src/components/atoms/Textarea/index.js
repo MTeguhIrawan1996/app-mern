@@ -1,12 +1,13 @@
 import React from "react";
 import "../main.scss";
 
-const Textarea = ({ ...rest }) => {
+const TextArea = ({ label, ...rest }) => {
   return (
-    <div>
-      <textarea className="text-area" {...rest}></textarea>
+    <div className="form">
+      <label className="form-label fw-bold">{label}</label>
+      <textarea className="form-control" {...rest} />
     </div>
   );
 };
 
-export default Textarea;
+export default TextArea;

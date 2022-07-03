@@ -4,9 +4,11 @@ import { LoginBg } from "../../../assets";
 
 const Upload = () => {
   return (
-    <div className="upload">
-      <img className="priview" src={LoginBg} alt="Priview" />
-      <input type="file" />
+    <div className="mb-3">
+      <img src={LoginBg} className="rounded priview" alt="..." />
+      <div>
+        <input className="form-control" type="file" id="formFile" />
+      </div>
     </div>
   );
 };
