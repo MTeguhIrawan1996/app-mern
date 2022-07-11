@@ -1,14 +1,18 @@
+@import "~bootstrap/scss/bootstrap.scss";
 .home-page-wrapper {
   padding-top: 40px;
   .create-wrapper {
-    width: 150px;
+    width: 170px;
     margin-right: 0px;
     margin-left: auto;
+    @include media-breakpoint-down(md) {
+      padding: 0px 20px 0px 20px;
+    }
   }
   .content-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    @include media-breakpoint-down(md) {
+      padding: 0px 20px 0px 20px;
+    }
   }
   .pagination {
     width: 300px;
