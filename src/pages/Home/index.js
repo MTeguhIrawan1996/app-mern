@@ -6,16 +6,14 @@ import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 
 const Home = () => {
-  // const [dataBlog, setDataBlog] = useState([]);
-  const { dataBlogs, name } = useSelector((state) => state);
+  const { dataBlog } = useSelector((state) => state.homeReducer);
   const dispatch = useDispatch();
-  // console.log("State Global :", stateGlobal);
-  console.log("State Global :", dataBlogs);
+  console.log("State Global :", dataBlog);
 
   useEffect(() => {
-    setTimeout(() => {
-      dispatch({ type: "UPDATE_NAME" });
-    }, 3000);
+    // setTimeout(() => {
+    //   // dispatch({ type: "UPDATE_NAME" });
+    // }, 3000);
 
     Axios.get("http://localhost:4000/v1/blog/posts?page=2&perPage=2")
       .then((result) => {
@@ -38,11 +36,10 @@ const Home = () => {
           onClick={() => history.push("/create-blog")}
         />
       </div>
-      <p>{name}</p>
       <Gap height={20} />
       <div className="content-wrapper">
         <div className="row row-cols-1 row-cols-md-2 g-4">
-          {dataBlogs.map((blog) => {
+          {dataBlog.map((blog) => {
             return (
               <BlogItem
                 key={blog._id}
