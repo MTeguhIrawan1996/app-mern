@@ -2,12 +2,13 @@ import React from "react";
 import "../main.scss";
 import { LoginBg } from "../../../assets";
 
-const Upload = () => {
+const Upload = ({ img, ...rest }) => {
   return (
     <div className="mb-3">
-      <img src={LoginBg} className="rounded priview" alt="..." />
+      {img && <img src={img} className="rounded priview" alt="..." />}
+
       <div>
-        <input className="form-control" type="file" id="formFile" />
+        <input className="form-control" type="file" id="formFile" {...rest} />
       </div>
     </div>
   );
