@@ -6,7 +6,7 @@ import { useHistory } from "react-router-dom";
 
 const BlogItem = (props) => {
   const history = useHistory();
-  const { image, title, name, date, body } = props;
+  const { image, title, name, date, body, _id } = props;
   return (
     <div>
       <div className="card mb-3">
@@ -24,7 +24,7 @@ const BlogItem = (props) => {
           <Button
             title="View Detail"
             className="button btn btn-success mt-2"
-            onClick={() => history.push("/detail-blog")}
+            onClick={() => history.push(`/detail-blog/${props._id}`)}
           />
         </div>
       </div>
