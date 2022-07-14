@@ -48,7 +48,7 @@ const Home = () => {
       </div>
       <Gap height={20} />
       <div className="content-wrapper">
-        <div className="row row-cols-1 row-cols-md-2 g-4">
+        <div className="row row-cols-1 row-cols-md-2 g-3">
           {dataBlog.map((blog) => {
             return (
               <BlogItem

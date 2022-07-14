@@ -8,7 +8,7 @@ const BlogItem = (props) => {
   const history = useHistory();
   const { image, title, name, date, body } = props;
   return (
-    <div className="col">
+    <div>
       <div className="card mb-3">
         <img src={image} className="card-img-top image-thumb" alt="post" />
         <div className="card-body content-detail">
