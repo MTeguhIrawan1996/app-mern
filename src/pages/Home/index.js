@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { BlogItem, Button, Gap } from "../../components";
 import "./home.scss";
 import { useHistory } from "react-router-dom";
-import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
+import { setDataBlog } from "../../config/redux/action";
 
 const Home = () => {
   const { dataBlog } = useSelector((state) => state.homeReducer);
@@ -15,16 +15,17 @@ const Home = () => {
     //   // dispatch({ type: "UPDATE_NAME" });
     // }, 3000);
 
-    Axios.get("http://localhost:4000/v1/blog/posts?page=2&perPage=2")
-      .then((result) => {
-        // console.log("data api", result.data);
-        const responseAPI = result.data;
-        // setDataBlog(responseAPI.data);
-        dispatch({ type: "UPDATE_DATA_BLOG", payload: responseAPI.data });
-      })
-      .catch((err) => {
-        console.log("err:", err);
-      });
+    // Axios.get("http://localhost:4000/v1/blog/posts?page=2&perPage=2")
+    //   .then((result) => {
+    //     // console.log("data api", result.data);
+    //     const responseAPI = result.data;
+    //     // setDataBlog(responseAPI.data);
+    //     dispatch(setDataBlog(responseAPI.data));
+    //   })
+    //   .catch((err) => {
+    //     console.log("err:", err);
+    //   });
+    dispatch(setDataBlog());
   }, [dispatch]);
   const history = useHistory();
   return (
