@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { RegisterBg } from "../../assets";
 import { Button } from "../../components";
 import "./detailBlog.scss";
 import { useHistory, withRouter } from "react-router-dom";

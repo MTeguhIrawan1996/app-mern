@@ -1,22 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Gap, Input, TextArea, Upload } from "../../components";
 import "./createBlog.scss";
-import { useHistory } from "react-router-dom";
-
+import { useHistory, withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { postToAPI, setForm, setImgPreview } from "../../config/redux/action";
+import {
+  postToAPI,
+  setDataBlog,
+  setForm,
+  setImgPreview,
+  updateToAPI,
+} from "../../config/redux/action";
+import Axios from "axios";
 
-const CreateBlog = () => {
+const CreateBlog = (props) => {
   const history = useHistory();
   const { form, imgPreview } = useSelector((state) => state.createBlogReducer);
   const { title, body } = form;
+  const [isUpdate, setIsUpdate] = useState(false);
   const dispatch = useDispatch();
+  const { counter } = useState();
   // const [title, setTitle] = useState("");
   // const [body, setBody] = useState("");
   // const [image, setImage] = useState("");
   // const [imagePreview, setImagePreview] = useState(null);
+
+  useEffect(() => {
+    const id = props.match.params.id;
+    // console.log("params:", props);
+    if (id) {
+      setIsUpdate(true);
+      Axios.get(`http://localhost:4000/v1/blog/post/${id}`)
+        .then((res) => {
+          const responseAPI = res.data;
+          // console.log(responseAPI);
+          dispatch(setForm("title", responseAPI.data.title));
+          dispatch(setForm("body", responseAPI.data.body));
+          dispatch(
+            setImgPreview(`http://localhost:4000/${responseAPI.data.image}`)
+          );
+        })
+        .catch((err) => {
+          console.log("err:", err);
+        });
+    } else {
+      dispatch(setForm("title", ""));
+      dispatch(setForm("body", ""));
+      dispatch(setImgPreview(counter));
+    }
+  }, [dispatch, props, counter]);
+
   const onSubmit = () => {
-    postToAPI(form);
+    const id = props.match.params.id;
+    if (isUpdate) {
+      updateToAPI(form, id, history);
+      dispatch(setDataBlog(counter));
+    } else {
+      postToAPI(form, history);
+    }
+
     // console.log("title :", title);
     // console.log("body :", body);
     // console.log("image :", image);
@@ -46,7 +87,9 @@ const CreateBlog = () => {
   return (
     <div>
       <div className="card mt-3 mb-5">
-        <div className="card-header">Create New Blog Spot</div>
+        <div className="card-header">
+          {isUpdate ? "Update" : "Create New"} Blog Spot
+        </div>
         <div className="card-body">
           <Input
             label="Title"
@@ -62,7 +105,7 @@ const CreateBlog = () => {
         </div>
         <div className="button-action">
           <Button
-            title="Save"
+            title={isUpdate ? "Update" : "Simpan"}
             className="button btn btn-success"
             onClick={onSubmit}
           />
@@ -78,4 +121,4 @@ const CreateBlog = () => {
   );
 };
 
-export default CreateBlog;
+export default withRouter(CreateBlog);

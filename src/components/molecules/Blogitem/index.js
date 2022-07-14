@@ -6,13 +6,27 @@ import { useHistory } from "react-router-dom";
 
 const BlogItem = (props) => {
   const history = useHistory();
-  const { image, title, name, date, body, _id } = props;
+  const { image, title, name, date, body, _id, onDelete } = props;
   return (
     <div>
       <div className="card mb-3">
         <img src={image} className="card-img-top image-thumb" alt="post" />
-        <div className="card-body content-detail">
-          <h5 className="card-title">{title}</h5>
+        <div className="card-body">
+          <div className="title-wrapper">
+            <h5 className="card-title">{title}</h5>
+            <div className="edit-wrapper">
+              <p
+                className="edit"
+                onClick={() => history.push(`/create-blog/${_id}`)}
+              >
+                Edit
+              </p>
+              |
+              <p className="delete" onClick={() => onDelete(_id)}>
+                Delete
+              </p>
+            </div>
+          </div>
           <p className="card-text">
             <small className="text-muted">
               {name} - {date}
@@ -24,7 +38,7 @@ const BlogItem = (props) => {
           <Button
             title="View Detail"
             className="button btn btn-success mt-2"
-            onClick={() => history.push(`/detail-blog/${props._id}`)}
+            onClick={() => history.push(`/detail-blog/${_id}`)}
           />
         </div>
       </div>
